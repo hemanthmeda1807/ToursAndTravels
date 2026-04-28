@@ -104,6 +104,8 @@ h1, h2, h3, h4, h5, h6, .brand-text {
     box-shadow: var(--card-shadow);
     transition: all 0.3s ease;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .tour-card:hover {
@@ -141,6 +143,9 @@ h1, h2, h3, h4, h5, h6, .brand-text {
 
 .card-body {
     padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .tour-price {

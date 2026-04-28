@@ -29,7 +29,7 @@
         
         <div class="row g-4">
             {% for tour in featured_tours %}
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-3">
                 <div class="tour-card animate-up" style="animation-delay: {{ forloop.counter|add:1 }}00ms;">
                     <div class="card-img-wrapper">
                         {% if tour.image %}
