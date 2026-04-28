@@ -21,12 +21,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+s7=l_*v)4+%!24ptk*)%m5(*q^urljvd(2q$@@52%6(yvje(q'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-+s7=l_*v)4+%!24ptk*)%m5(*q^urljvd(2q$@@52%6(yvje(q')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['hemanth.pythonanywhere.com', 'localhost', '127.0.0.1']
+
+# CSRF Trusted Origins for PythonAnywhere
+CSRF_TRUSTED_ORIGINS = ['https://hemanth.pythonanywhere.com']
+
+# Production Security Settings
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
 
 
 # Application definition

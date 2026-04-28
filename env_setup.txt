@@ -1,0 +1,6 @@
+# Environment Variables for PythonAnywhere
+# Set these in your WSGI configuration file or using a .env file
+
+DJANGO_SECRET_KEY=your_django_secret_key_here
+STRIPE_PUBLIC_KEY=pk_test_your_public_key_here
+STRIPE_SECRET_KEY=sk_test_your_secret_key_here
