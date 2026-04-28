@@ -1,12 +1,14 @@
 import os
 import django
+
+# 1. Setup Django first!
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tours_project.settings')
+django.setup()
+
+# 2. Now import models
+from tours_app.models import Category, TourPackage
 from django.conf import settings
 from django.core.files import File
-from tours_app.models import Category, TourPackage
-
-# Ensure Django is setup if run standalone
-# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tours_project.settings')
-# django.setup()
 
 def populate():
     # 1. Create Categories
