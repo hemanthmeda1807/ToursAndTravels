@@ -3,5 +3,6 @@ venv/
 __pycache__/
 db.sqlite3
 .env
-media/
+media/*
+!media/tours/
 .DS_Store

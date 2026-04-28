@@ -60,7 +60,28 @@ def populate():
             
             # Download image from Unsplash
             try:
-                img_url = f"https://source.unsplash.com/featured/800x600/?{p['img']}"
+                img_url = f"https://images.unsplash.com/photo-1500000000000?auto=format&fit=crop&w=800&q=60" # Fallback
+                # Map keywords to specific high-quality Unsplash IDs for variety
+                img_ids = {
+                    "bali": "1537992153473-17369a0be4a9",
+                    "iceland": "1476610182048-b716b8518aae",
+                    "kyoto": "1493976040374-85c8e12f0c0e",
+                    "safari": "1516422213481-2950019680af",
+                    "skydiving": "1520608421441-67c7ad29ba9c",
+                    "santorini": "1507501336603-6e31db2be73a",
+                    "rome": "1552832230-c0197dd3ef73",
+                    "patagonia": "1517059224940-d4af9eec41b7",
+                    "phuket": "1589394815804-964ed76aeb33",
+                    "machupicchu": "1587595303484-0ac139c2794e",
+                    "diving": "1544551763-46a013bb70d5",
+                    "yacht": "1534447677768-be436bb09401",
+                    "pyramids": "1503917988258-f87a78e3c995",
+                    "kayak": "1473496169904-658ba7c44d8a"
+                }
+                keyword = p['img'].split(',')[0]
+                photo_id = img_ids.get(keyword, "1476514525535-07fb3b4ae5f1")
+                img_url = f"https://images.unsplash.com/photo-{photo_id}?auto=format&fit=crop&w=800&q=80"
+                
                 response = requests.get(img_url)
                 if response.status_code == 200:
                     filename = f"{p['title'].lower().replace(' ', '_')}.jpg"
