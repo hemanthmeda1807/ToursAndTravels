@@ -61,7 +61,7 @@ def populate():
             # Download image from Unsplash
             try:
                 img_url = f"https://images.unsplash.com/photo-1500000000000?auto=format&fit=crop&w=800&q=60" # Fallback
-                # Map keywords to specific high-quality Unsplash IDs for variety
+                # 14 Unique IDs for all 14 tours
                 img_ids = {
                     "bali": "1537992153473-17369a0be4a9",
                     "iceland": "1476610182048-b716b8518aae",
@@ -78,8 +78,24 @@ def populate():
                     "pyramids": "1503917988258-f87a78e3c995",
                     "kayak": "1473496169904-658ba7c44d8a"
                 }
-                keyword = p['img'].split(',')[0]
-                photo_id = img_ids.get(keyword, "1476514525535-07fb3b4ae5f1")
+                # Use a specific key for each tour based on its location or keyword
+                keywords = {
+                    "Bali Beach Paradise": "bali",
+                    "Iceland Aurora": "iceland",
+                    "Kyoto Heritage": "kyoto",
+                    "Serengeti Safari": "safari",
+                    "Swiss Skydiving": "skydiving",
+                    "Santorini Sunset": "santorini",
+                    "Rome History": "rome",
+                    "Patagonia Trek": "patagonia",
+                    "Phuket Escape": "phuket",
+                    "Machu Picchu": "machupicchu",
+                    "Reef Diving": "diving",
+                    "Riviera Cruise": "yacht",
+                    "Cairo Pyramids": "pyramids",
+                    "Fjord Kayaking": "kayak"
+                }
+                photo_id = img_ids.get(keywords.get(p['title']), "1476514525535-07fb3b4ae5f1")
                 img_url = f"https://images.unsplash.com/photo-{photo_id}?auto=format&fit=crop&w=800&q=80"
                 
                 response = requests.get(img_url)
