@@ -71,7 +71,7 @@
         
         <div class="row g-4 justify-content-center">
             {% for category in categories %}
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-md-4 col-lg-2">
                 <a href="{% url 'package_list' %}?category={{ category.id }}" class="text-decoration-none">
                     <div class="category-card">
                         <h6>{{ category.name }}</h6>
