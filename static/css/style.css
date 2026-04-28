@@ -220,3 +220,29 @@ h1, h2, h3, h4, h5, h6, .brand-text {
 .animate-up {
     animation: fadeInUp 0.8s ease forwards;
 }
+
+.category-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.category-card h6 {
+    margin-bottom: 0;
+    font-weight: 600;
+    color: var(--text-main);
+}

@@ -69,12 +69,12 @@
             <p class="text-muted">Find exactly what you're looking for.</p>
         </div>
         
-        <div class="row g-3 justify-content-center">
+        <div class="row g-4 justify-content-center">
             {% for category in categories %}
-            <div class="col-md-3">
+            <div class="col-6 col-md-3">
                 <a href="{% url 'package_list' %}?category={{ category.id }}" class="text-decoration-none">
-                    <div class="p-4 border rounded-4 text-center hover-shadow transition-all bg-light">
-                        <h6 class="mb-0 text-dark">{{ category.name }}</h6>
+                    <div class="category-card">
+                        <h6>{{ category.name }}</h6>
                     </div>
                 </a>
             </div>
