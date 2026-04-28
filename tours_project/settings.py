@@ -26,10 +26,10 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-+s7=l_*v)4+%!2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['hemanth.pythonanywhere.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['hemanthmeda.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 # CSRF Trusted Origins for PythonAnywhere
-CSRF_TRUSTED_ORIGINS = ['https://hemanth.pythonanywhere.com']
+CSRF_TRUSTED_ORIGINS = ['https://hemanthmeda.pythonanywhere.com']
 
 # Production Security Settings
 SECURE_SSL_REDIRECT = True
