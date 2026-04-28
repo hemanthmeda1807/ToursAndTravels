@@ -1,0 +1,131 @@
+{% load static %}
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AeroTravels - Explore the World{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    {% bootstrap_css %}
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" id="main-nav">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+                <span class="brand-text">Aero<span>Travels</span></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'package_list' %}">Tours</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact_us' %}">Contact</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                             Hi, {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">My Bookings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <div class="ms-lg-3">
+                    <a href="{% url 'package_list' %}" class="btn btn-primary btn-book-now">Explore Now</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer mt-5 py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h5 class="brand-text text-white mb-4">Aero<span>Travels</span></h5>
+                    <p class="text-light">Your ultimate partner for exploring the most beautiful destinations around the globe. We provide curated experiences that last a lifetime.</p>
+                </div>
+                <div class="col-md-2 offset-md-1">
+                    <h6 class="text-white mb-4">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'home' %}" class="text-light text-decoration-none">Home</a></li>
+                        <li><a href="{% url 'package_list' %}" class="text-light text-decoration-none">Tours</a></li>
+                        <li><a href="{% url 'contact_us' %}" class="text-light text-decoration-none">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="text-white mb-4">Support</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none">Privacy Policy</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Terms of Service</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6 class="text-white mb-4">Contact Info</h6>
+                    <p class="text-light mb-1"><i class="bi bi-geo-alt me-2"></i> 123 Travel Road, Explorer City</p>
+                    <p class="text-light mb-1"><i class="bi bi-envelope me-2"></i> support@aerotravels.com</p>
+                    <p class="text-light"><i class="bi bi-telephone me-2"></i> +1 234 567 890</p>
+                </div>
+            </div>
+            <hr class="my-4 border-secondary">
+            <div class="text-center text-light">
+                <p class="mb-0">&copy; 2026 AeroTravels. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    {% bootstrap_javascript %}
+    
+    <!-- Custom JS -->
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

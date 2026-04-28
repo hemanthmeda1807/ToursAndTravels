@@ -1,0 +1,72 @@
+{% extends 'tours_app/base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block title %}{{ package.title }} - AeroTravels{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'package_list' %}">Tours</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ package.title }}</li>
+            </ol>
+        </nav>
+
+        <div class="row g-5">
+            <!-- Package Details -->
+            <div class="col-lg-8">
+                <div class="rounded-5 overflow-hidden mb-4 shadow" style="height: 450px;">
+                    {% if package.image %}
+                    <img src="{{ package.image.url }}" alt="{{ package.title }}" class="w-100 h-100 object-fit-cover">
+                    {% else %}
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="w-100 h-100 object-fit-cover">
+                    {% endif %}
+                </div>
+
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <span class="badge bg-primary rounded-pill px-3 py-2 fs-6">{{ package.category.name }}</span>
+                    <span class="text-muted"><i class="bi bi-geo-alt me-1"></i> {{ package.location }}</span>
+                    <span class="text-muted"><i class="bi bi-clock me-1"></i> {{ package.duration_days }} Days</span>
+                </div>
+
+                <h1 class="mb-4">{{ package.title }}</h1>
+                
+                <div class="content-wrapper bg-white p-4 rounded-4 shadow-sm">
+                    <h5 class="mb-3">Description</h5>
+                    <p class="text-muted">{{ package.description|linebreaks }}</p>
+                </div>
+            </div>
+
+            <!-- Booking Sidebar -->
+            <div class="col-lg-4">
+                <div class="sticky-top" style="top: 100px; z-index: 1;">
+                    <div class="card border-0 rounded-4 shadow-sm overflow-hidden mb-4">
+                        <div class="card-header bg-dark text-white p-4 text-center">
+                            <span class="d-block small opacity-75">Starting from</span>
+                            <h2 class="mb-0 fw-bold">${{ package.price }}</h2>
+                        </div>
+                        <div class="card-body p-4">
+                            <h5 class="mb-4">Book This Tour</h5>
+                            <form method="post">
+                                {% csrf_token %}
+                                {% bootstrap_form form %}
+                                <button type="submit" class="btn btn-primary w-100 rounded-pill py-3 mt-3 fw-bold btn-book-now">Request Booking</button>
+                            </form>
+                            <p class="text-center text-muted small mt-3">No payment required now. Our team will contact you for details.</p>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 rounded-4 shadow-sm p-4 bg-primary bg-opacity-10">
+                        <h6 class="mb-3">Need Help?</h6>
+                        <p class="small text-muted mb-3">Questions about this tour? Contact our travel experts today.</p>
+                        <a href="{% url 'contact_us' %}" class="btn btn-outline-primary btn-sm rounded-pill w-100">Contact Support</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

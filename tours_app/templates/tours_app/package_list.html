@@ -1,0 +1,67 @@
+{% extends 'tours_app/base.html' %}
+{% load static %}
+
+{% block title %}Tour Packages - AeroTravels{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-dark text-white text-center">
+    <div class="container py-4">
+        <h1 class="display-4 fw-bold">Explore Our Packages</h1>
+        <p class="lead">Find the perfect tour for your next escape.</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <!-- Filters -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                    <a href="{% url 'package_list' %}" class="btn {% if not request.GET.category %}btn-primary{% else %}btn-outline-secondary{% endif %} rounded-pill px-4">All Tours</a>
+                    {% for category in categories %}
+                    <a href="{% url 'package_list' %}?category={{ category.id }}" class="btn {% if request.GET.category == category.id|stringformat:'i' %}btn-primary{% else %}btn-outline-secondary{% endif %} rounded-pill px-4">{{ category.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            {% for tour in packages %}
+            <div class="col-md-4">
+                <div class="tour-card animate-up">
+                    <div class="card-img-wrapper">
+                        {% if tour.image %}
+                        <img src="{{ tour.image.url }}" alt="{{ tour.title }}">
+                        {% else %}
+                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Default Image">
+                        {% endif %}
+                        <span class="tour-badge">{{ tour.category.name }}</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted small"><i class="bi bi-geo-alt me-1"></i> {{ tour.location }}</span>
+                            <span class="text-muted small"><i class="bi bi-clock me-1"></i> {{ tour.duration_days }} Days</span>
+                        </div>
+                        <h5 class="card-title mb-3">{{ tour.title }}</h5>
+                        <p class="text-muted small mb-4">{{ tour.description|truncatechars:100 }}</p>
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                            <span class="tour-price">${{ tour.price }}</span>
+                            <a href="{% url 'package_detail' tour.pk %}" class="btn btn-primary rounded-pill px-4">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <div class="mb-4">
+                    <i class="bi bi-search fs-1 text-muted"></i>
+                </div>
+                <h3>No tours found</h3>
+                <p class="text-muted">We couldn't find any tours matching your filters. Try exploring other categories!</p>
+                <a href="{% url 'package_list' %}" class="btn btn-primary mt-3">Reset Filters</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

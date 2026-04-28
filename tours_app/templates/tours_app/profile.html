@@ -1,0 +1,104 @@
+{% extends 'tours_app/base.html' %}
+
+{% block title %}My Bookings - AeroTravels{% endblock %}
+
+{% block content %}
+<div class="profile-section py-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12">
+                <h1 class="display-5 fw-bold">Welcome, {{ user.first_name|default:user.username }}!</h1>
+                <p class="lead text-muted">Manage your upcoming adventures and booking history.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow-sm border-0 rounded-4">
+                    <div class="card-header bg-white py-3 border-bottom-0">
+                        <h4 class="mb-0 fw-bold">My Bookings</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        {% if bookings %}
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th class="ps-4">Package</th>
+                                        <th>Travel Date</th>
+                                        <th>Travellers</th>
+                                        <th>Status</th>
+                                        <th>Booked On</th>
+                                        <th class="pe-4 text-end">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for booking in bookings %}
+                                    <tr>
+                                        <td class="ps-4">
+                                            <div class="d-flex align-items-center">
+                                                {% if booking.package.image %}
+                                                <img src="{{ booking.package.image.url }}" alt="{{ booking.package.title }}" class="rounded-3 me-3" style="width: 60px; height: 40px; object-fit: cover;">
+                                                {% else %}
+                                                <div class="bg-secondary rounded-3 me-3 d-flex align-items-center justify-content-center text-white" style="width: 60px; height: 40px;">
+                                                    <i class="bi bi-image"></i>
+                                                </div>
+                                                {% endif %}
+                                                <div>
+                                                    <h6 class="mb-0 fw-bold">{{ booking.package.title }}</h6>
+                                                    <small class="text-muted">{{ booking.package.location }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{{ booking.travel_date }}</td>
+                                        <td>{{ booking.travellers_count }}</td>
+                                        <td>
+                                            {% if booking.status == 'confirmed' %}
+                                            <span class="badge bg-success-soft text-success px-3 py-2 rounded-pill">Confirmed</span>
+                                            {% elif booking.status == 'pending' %}
+                                            <span class="badge bg-warning-soft text-warning px-3 py-2 rounded-pill">Pending</span>
+                                            {% else %}
+                                            <span class="badge bg-danger-soft text-danger px-3 py-2 rounded-pill">Cancelled</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ booking.booked_at|date:"M d, Y" }}</td>
+                                        <td class="pe-4 text-end">
+                                            <a href="{% url 'package_detail' booking.package.pk %}" class="btn btn-outline-primary btn-sm rounded-pill">View</a>
+                                            {% if booking.status == 'pending' %}
+                                            <a href="{% url 'cancel_booking' booking.pk %}" class="btn btn-outline-danger btn-sm rounded-pill" onclick="return confirm('Are you sure you want to cancel this booking?');">Cancel</a>
+                                            {% elif booking.status == 'confirmed' %}
+                                            <a href="{% url 'download_ticket' booking.pk %}" class="btn btn-outline-success btn-sm rounded-pill">Ticket</a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="text-center py-5">
+                            <div class="mb-3">
+                                <i class="bi bi-calendar-x display-1 text-muted"></i>
+                            </div>
+                            <h5>No bookings found</h5>
+                            <p class="text-muted">You haven't booked any tours yet.</p>
+                            <a href="{% url 'package_list' %}" class="btn btn-primary rounded-pill mt-2">Explore Packages</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .profile-section {
+        background-color: #f8f9fa;
+        min-height: 70vh;
+    }
+    .bg-success-soft { background-color: rgba(25, 135, 84, 0.1); }
+    .bg-warning-soft { background-color: rgba(255, 193, 7, 0.1); }
+    .bg-danger-soft { background-color: rgba(220, 53, 69, 0.1); }
+</style>
+{% endblock %}

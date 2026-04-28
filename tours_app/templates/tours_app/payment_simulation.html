@@ -1,0 +1,34 @@
+{% extends 'tours_app/base.html' %}
+
+{% block title %}Payment Simulation - AeroTravels{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-5">
+                    <div class="mb-4 text-primary">
+                        <i class="bi bi-credit-card" style="font-size: 4rem;"></i>
+                    </div>
+                    <h2 class="fw-bold mb-3">Simulated Payment Gateway</h2>
+                    <p class="text-muted mb-4">
+                        You are booking <strong>{{ booking.package.title }}</strong> for {{ booking.travellers_count }} travellers.
+                    </p>
+                    <div class="alert alert-info">
+                        <strong>Notice:</strong> This is a simulation page for testing because no valid Stripe API keys were found. Click "Pay Now" to simulate a successful payment.
+                    </div>
+                    <div class="d-grid gap-3 mt-4">
+                        <a href="{% url 'payment_success' booking.id %}" class="btn btn-success btn-lg rounded-pill">
+                            <i class="bi bi-check-circle me-2"></i> Simulate Successful Payment
+                        </a>
+                        <a href="{% url 'payment_cancel' booking.id %}" class="btn btn-outline-danger rounded-pill">
+                            Cancel Payment
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
