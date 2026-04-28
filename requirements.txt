@@ -2,7 +2,7 @@ asgiref==3.11.1
 certifi==2026.4.22
 charset-normalizer==3.4.7
 defusedxml==0.7.1
-Django==6.0.4
+Django>=5.0
 django-bootstrap5==26.2
 fonttools==4.62.1
 fpdf2==2.8.7
